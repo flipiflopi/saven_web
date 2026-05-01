@@ -1,0 +1,36 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx create-next-app@14 . --typescript --tailwind --eslint --app --src-dir --import-alias \"@/*\" --no-git)",
+      "Bash(npm install *)",
+      "Bash(npm audit *)",
+      "Bash(npx prisma *)",
+      "Bash(npx next *)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:3000)",
+      "Bash(npx ts-node *)",
+      "Bash(python3 -c ' *)",
+      "Bash(node -e ' *)",
+      "Bash(curl -s http://localhost:3000)",
+      "Bash(curl -s http://localhost:3000/catalogo)",
+      "Bash(taskkill /F /IM node.exe)",
+      "PowerShell(Stop-Process -Name \"node\" -Force -ErrorAction SilentlyContinue)",
+      "PowerShell(cd \"C:\\\\GitHub Clones\\\\saven_web\"; $job = Start-Job -ScriptBlock { cd \"C:\\\\GitHub Clones\\\\saven_web\"; npx next dev 2>&1 }; Start-Sleep -Seconds 8; Receive-Job $job)",
+      "PowerShell(cd \"C:\\\\GitHub Clones\\\\saven_web\"; $job = Start-Job -ScriptBlock { cd \"C:\\\\GitHub Clones\\\\saven_web\"; npx next dev 2>&1 }; Start-Sleep -Seconds 10; $html = Invoke-WebRequest -Uri \"http://localhost:3000\" -UseBasicParsing; $html.Content | Select-String -Pattern \"stylesheet|_next/static|globals|\\\\.css\" | Select-Object -First 10; Stop-Job $job)",
+      "PowerShell(cd \"C:\\\\GitHub Clones\\\\saven_web\"; $job = Start-Job -ScriptBlock { cd \"C:\\\\GitHub Clones\\\\saven_web\"; npx next dev 2>&1 }; Start-Sleep -Seconds 10; $css = Invoke-WebRequest -Uri \"http://localhost:3000/_next/static/css/app/layout.css\" -UseBasicParsing; Write-Output \"CSS size: $\\($css.Content.Length\\) bytes\"; $css.Content | Select-String \"dark-950|gold-500|bg-dark|text-gold\" | Select-Object -First 5; Stop-Job $job)",
+      "Bash(curl -v http://localhost:3000/catalogo)",
+      "Bash(curl -s \"http://localhost:3000/catalogo\")",
+      "Bash(curl -s -o /dev/null -w \"%{http_code} %{size_download}\" \"http://localhost:3000/_next/static/css/app/layout.css?v=1777576250342\")",
+      "Bash(curl -s \"http://localhost:3000/\")",
+      "Bash(curl -s -o /dev/null -w \"HTTP %{http_code} on port 3000\" http://localhost:3000)",
+      "Bash(curl -s \"http://localhost:3000\")",
+      "Bash(curl -s -o /dev/null -w '%{http_code}' http://localhost:3000/producto/__TRACKED_VAR__)",
+      "Bash(curl -s \"http://localhost:3000/producto/aeschbach-ww2-pattern-germany-luftwaffe-reichsluftfahrtministerium-rlm-pilots-watch-with-a-24-jewel-swiss-sellita-sw260-automatic-movement-and-a-domed-vintage-box-sapphire-crystal-copy\")",
+      "Bash(curl -s \"http://localhost:3000/producto/producto-que-no-existe\")",
+      "Bash(curl -s -o /dev/null -w '%{http_code}' http://localhost:3000/carrito)",
+      "Bash(echo \"Cart: $\\(curl -s -o /dev/null -w '%{http_code}' http://localhost:3000/carrito\\)\")",
+      "Bash(curl -s -o /dev/null -w '%{http_code}' http://localhost:3000/checkout)",
+      "Bash(echo \"Checkout: $\\(curl -s -o /dev/null -w '%{http_code}' http://localhost:3000/checkout\\)\")",
+      "Bash(curl -s -o /dev/null -w \"HTTP %{http_code}\" http://localhost:3000)"
+    ]
+  }
+}

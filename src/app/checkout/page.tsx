@@ -7,12 +7,13 @@ import { PayPalScriptProvider, PayPalButtons } from '@paypal/react-paypal-js'
 import { ChevronLeft, Lock } from 'lucide-react'
 import { useCartStore } from '@/store/cart'
 
-const PAYPAL_CLIENT_ID = process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID ?? 'test'
+const PAYPAL_CLIENT_ID = (process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID ?? '').trim()
 
 export default function CheckoutPage() {
   const [mounted, setMounted] = useState(false)
   const [orderSuccess, setOrderSuccess] = useState(false)
   const [orderId, setOrderId] = useState<string | null>(null)
+  const [paypalError, setPaypalError] = useState<string | null>(null)
   const router = useRouter()
   const { items, total, clearCart } = useCartStore()
 
@@ -177,26 +178,39 @@ export default function CheckoutPage() {
               Pago seguro con PayPal
             </div>
 
-            <PayPalScriptProvider
-              options={{
-                clientId: PAYPAL_CLIENT_ID,
-                currency: 'EUR',
-                intent: 'capture',
-              }}
-            >
-              <PayPalButtons
-                style={{
-                  layout: 'vertical',
-                  color: 'gold',
-                  shape: 'rect',
-                  label: 'pay',
-                  height: 48,
+            {!PAYPAL_CLIENT_ID ? (
+              <div className="bg-dark-900 border border-red-500/30 p-4 text-red-400 text-sm">
+                Error de configuración: PayPal no está configurado correctamente.
+              </div>
+            ) : paypalError ? (
+              <div className="bg-dark-900 border border-red-500/30 p-4 text-red-400 text-sm">
+                {paypalError}
+              </div>
+            ) : (
+              <PayPalScriptProvider
+                options={{
+                  clientId: PAYPAL_CLIENT_ID,
+                  currency: 'EUR',
+                  intent: 'capture',
                 }}
-                createOrder={createOrder}
-                onApprove={onApprove}
-                onError={(err) => console.error('PayPal error:', err)}
-              />
-            </PayPalScriptProvider>
+              >
+                <PayPalButtons
+                  style={{
+                    layout: 'vertical',
+                    color: 'gold',
+                    shape: 'rect',
+                    label: 'pay',
+                    height: 48,
+                  }}
+                  createOrder={createOrder}
+                  onApprove={onApprove}
+                  onError={(err) => {
+                    console.error('PayPal error:', err)
+                    setPaypalError('Error al procesar el pago con PayPal. Por favor, inténtalo de nuevo.')
+                  }}
+                />
+              </PayPalScriptProvider>
+            )}
 
             <p className="text-dark-600 text-xs text-center mt-4 leading-relaxed">
               Al completar el pago aceptas nuestros{' '}

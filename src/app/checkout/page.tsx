@@ -69,12 +69,17 @@ export default function CheckoutPage() {
       throw new Error('form incomplete')
     }
     setPaypalError(null)
-    const res = await fetch('/api/paypal/create-order', {
+    const res  = await fetch('/api/paypal/create-order', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ amount: grandTotal.toFixed(2), currency: 'EUR' }),
     })
     const data = await res.json()
+    if (!data.id) {
+      const msg = data.error ?? 'No se pudo crear la orden en PayPal'
+      setPaypalError(msg)
+      throw new Error(msg)
+    }
     return data.id
   }
 

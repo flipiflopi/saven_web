@@ -68,10 +68,12 @@ model Order {
   name        String?
   phone       String?
   address     Json?
-  shipping    Float   @default(0)
-  items       OrderItem[]
-  createdAt   DateTime    @default(now())
-  updatedAt   DateTime    @updatedAt
+  shipping        Float     @default(0)
+  trackingNumber  String?
+  shippedAt       DateTime?
+  items           OrderItem[]
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
 }
 
 model OrderItem {

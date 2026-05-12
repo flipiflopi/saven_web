@@ -5,17 +5,19 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { Minus, Plus, Trash2, ShoppingBag, ArrowRight, ChevronLeft } from 'lucide-react'
 import { useCartStore } from '@/store/cart'
+import { getShippingCost, COUNTRIES, FREE_SHIPPING_THRESHOLD } from '@/lib/shipping'
 
 export default function CarritoPage() {
   const [mounted, setMounted] = useState(false)
-  const { items, removeItem, updateQuantity, total } = useCartStore()
+  const { items, removeItem, updateQuantity, total, country, setCountry } = useCartStore()
 
   useEffect(() => {
     setMounted(true)
   }, [])
 
   const subtotal = mounted ? total() : 0
-  const shipping = subtotal > 0 ? 0 : 0 // free shipping placeholder
+  const shipping = mounted ? getShippingCost(country, subtotal) : 0
+  const grandTotal = subtotal + shipping
 
   if (!mounted) {
     return (
@@ -173,6 +175,22 @@ export default function CarritoPage() {
             <div className="bg-dark-900 border border-white/5 p-6 sticky top-28">
               <h2 className="font-serif text-xl text-white font-light mb-6">Resumen del pedido</h2>
 
+              {/* Country selector */}
+              <div className="mb-5">
+                <label className="block text-xs tracking-[0.2em] uppercase text-dark-400 mb-2">
+                  País de envío
+                </label>
+                <select
+                  value={country}
+                  onChange={(e) => setCountry(e.target.value)}
+                  className="w-full bg-dark-950 border border-white/10 text-white text-sm px-3 py-2.5 appearance-none focus:outline-none focus:border-gold-500 transition-colors"
+                >
+                  {COUNTRIES.map((c) => (
+                    <option key={c.code} value={c.code}>{c.name}</option>
+                  ))}
+                </select>
+              </div>
+
               <div className="space-y-3 mb-6">
                 <div className="flex justify-between text-sm">
                   <span className="text-dark-400">Subtotal</span>
@@ -182,17 +200,26 @@ export default function CarritoPage() {
                 </div>
                 <div className="flex justify-between text-sm">
                   <span className="text-dark-400">Envío</span>
-                  <span className="text-gold-400 text-xs tracking-widest uppercase">
-                    {shipping === 0 ? 'Calculado al pagar' : `${shipping}€`}
+                  <span className={shipping === 0 && subtotal > 0 ? 'text-gold-400 text-xs tracking-widest uppercase' : 'text-white'}>
+                    {subtotal === 0
+                      ? <span className="text-dark-500 text-xs">—</span>
+                      : shipping === 0
+                      ? 'Gratis'
+                      : shipping.toLocaleString('es-ES', { style: 'currency', currency: 'EUR' })}
                   </span>
                 </div>
+                {subtotal > 0 && subtotal < FREE_SHIPPING_THRESHOLD && (
+                  <p className="text-dark-500 text-xs">
+                    Envío gratis a partir de {FREE_SHIPPING_THRESHOLD}€
+                  </p>
+                )}
               </div>
 
               <div className="border-t border-white/10 pt-4 mb-6">
                 <div className="flex justify-between">
                   <span className="text-white font-medium">Total</span>
                   <span className="text-white text-lg font-light">
-                    {subtotal.toLocaleString('es-ES', { style: 'currency', currency: 'EUR' })}
+                    {grandTotal.toLocaleString('es-ES', { style: 'currency', currency: 'EUR' })}
                   </span>
                 </div>
                 <p className="text-dark-500 text-xs mt-1">Impuestos incluidos</p>

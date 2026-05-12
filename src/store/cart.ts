@@ -14,10 +14,12 @@ export type CartItem = {
 
 type CartStore = {
   items: CartItem[]
+  country: string
   addItem: (item: CartItem) => void
   removeItem: (variantId: string) => void
   updateQuantity: (variantId: string, quantity: number) => void
   clearCart: () => void
+  setCountry: (country: string) => void
   total: () => number
   itemCount: () => number
 }
@@ -26,6 +28,9 @@ export const useCartStore = create<CartStore>()(
   persist(
     (set, get) => ({
       items: [],
+      country: 'ES',
+
+      setCountry: (country) => set({ country }),
 
       addItem: (item) => {
         const existing = get().items.find((i) => i.variantId === item.variantId)

@@ -42,6 +42,7 @@ export default function ScrollAboutSection() {
     }
 
     function drawBlended(f: number) {
+      if (!ctx) return
       const i0    = safeFrame(f)
       const i1    = Math.min(i0 + 1, TOTAL - 1)
       const alpha = f - Math.floor(f)

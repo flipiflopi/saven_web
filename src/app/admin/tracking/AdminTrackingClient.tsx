@@ -113,7 +113,7 @@ function OrderCard({ order, onShipped }: { order: Order; onShipped: (id: string,
               style={{
                 flex: 1, minWidth: 180, padding: '9px 12px', borderRadius: 8,
                 border: '1px solid #ddd', fontSize: 14, fontFamily: 'monospace',
-                outline: 'none',
+                outline: 'none', color: '#111',
               }}
               onKeyDown={e => e.key === 'Enter' && handleShip()}
             />

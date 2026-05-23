@@ -2,7 +2,8 @@
 
 import { useEffect, useRef } from 'react'
 
-const TOTAL    = 192
+const START    = 25
+const TOTAL    = 192 - START   // 167 frames (25→191)
 const BG       = '#020202'
 const PX_FRAME = 12
 const LERP     = 0.14
@@ -101,7 +102,7 @@ export default function ScrollFrameHero() {
       const idx = i
       img.onload  = () => onFrameLoaded(idx)
       img.onerror = () => { loadedCount++ }
-      img.src = '/frames/' + String(i).padStart(4, '0') + '.webp'
+      img.src = '/frames/' + String(START + i).padStart(4, '0') + '.webp'
       frames[i] = img
     }
 
@@ -145,7 +146,7 @@ export default function ScrollFrameHero() {
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             ref={posterRef}
-            src="/frames/0000.webp"
+            src="/frames/0025.webp"
             alt=""
             aria-hidden
             style={{

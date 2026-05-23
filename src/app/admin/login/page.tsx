@@ -58,7 +58,7 @@ export default function AdminLoginPage() {
             style={{
               display: 'block', width: '100%', padding: '10px 12px',
               border: '1px solid #ddd', borderRadius: 8, fontSize: 15,
-              outline: 'none', boxSizing: 'border-box',
+              outline: 'none', boxSizing: 'border-box', color: '#111',
               marginBottom: error ? 8 : 16,
             }}
           />

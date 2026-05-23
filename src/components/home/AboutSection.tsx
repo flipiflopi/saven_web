@@ -42,15 +42,14 @@ export default function AboutSection() {
             </div>
           </div>
 
-          {/* Image placeholder */}
-          <div className="relative">
-            <div className="aspect-[3/4] bg-dark-900 relative overflow-hidden">
-              <div className="absolute top-0 left-0 w-px h-full bg-gradient-to-b from-transparent via-gold-500 to-transparent opacity-40" />
-              <div className="absolute inset-0 flex items-center justify-center">
-                <p className="font-serif text-8xl tracking-[0.3em] text-dark-800">S</p>
-              </div>
-            </div>
-            <div className="absolute -bottom-4 -right-4 w-full h-full border border-gold-500/20 -z-10" />
+          {/* Image */}
+          <div className="flex justify-center">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/about.png"
+              alt="SAVEN"
+              className="max-w-[60%] h-auto"
+            />
           </div>
         </div>
       </div>

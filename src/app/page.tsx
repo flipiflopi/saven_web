@@ -1,6 +1,6 @@
 import ScrollFrameHero from '@/components/home/ScrollFrameHero'
 import HeroSection from '@/components/home/HeroSection'
-import AboutSection from '@/components/home/AboutSection'
+import ScrollAboutSection from '@/components/home/ScrollAboutSection'
 import FeaturedSection from '@/components/home/FeaturedSection'
 import VideoSection from '@/components/home/VideoSection'
 import ContactSection from '@/components/home/ContactSection'
@@ -10,7 +10,7 @@ export default function Home() {
     <main>
       <ScrollFrameHero />
       <HeroSection />
-      <AboutSection />
+      <ScrollAboutSection />
       <FeaturedSection />
       <VideoSection />
       <ContactSection />
